@@ -3,6 +3,7 @@ package com.zerolinux5.newssource;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -14,7 +15,11 @@ import android.widget.Toast;
 
 public class MenuActivity extends Activity {
 	private static final String LOG_TAG = "ChooserActivity";
+	private static final String PREFS_NAME = "BasicPreferences";
 	private RadioGroup r1;
+	public static String NEWSTRING = " ";
+	public static final String NEWSTRING_POINTER = "NEWSTRING";
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,8 @@ public class MenuActivity extends Activity {
 		Button b1 = (Button) findViewById(R.id.button1);
 		b1.setOnClickListener(myhandler1);
 	    r1 = (RadioGroup) findViewById(R.id.radioGroup1);
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		NEWSTRING = settings.getString(NEWSTRING_POINTER, " ");
 	}
 	
 	  View.OnClickListener myhandler1 = new View.OnClickListener() {
@@ -56,8 +63,12 @@ public class MenuActivity extends Activity {
 		} else {
 			String buttonlabel = Integer.toString(getRadioButton());
 			Intent result = new Intent();
-			Log.d(LOG_TAG, "Chosen: " +  newString);
 			result.putExtra(MainActivity.NEW_STRING, newString);
+			NEWSTRING = newString;
+			SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+			final SharedPreferences.Editor editor = settings.edit(); 
+			editor.putString("NEWSTRING", newString);
+			editor.commit();
 			if(getRadioButton() == 1){
 				result.putExtra(MainActivity.NEW_URL1, newURL);				
 			} else if(getRadioButton() == 2){

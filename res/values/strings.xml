@@ -19,5 +19,6 @@
     <string name="default_1">http://www.zerolinux5.com/</string>
     <string name="default_2">http://news.ycombinator.com/</string>
     <string name="default_3">http://www.ubuntuvibes.com/</string>
+    <string name="prefix">Http://</string>
     
 </resources>

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -17,10 +18,11 @@ public class MainActivity extends Activity {
 	public static final int BUTTONTRUE = 1;
 	public static final String LABEL_NUMBER = "";
 	public static final String NEW_STRING = "";
-	public static final String NEW_URL1 = "http://www.zerolinux5.com/";
-	public static final String NEW_URL2 = "http://news.ycombinator.com/";	
-	public static final String NEW_URL3 = "http://www.ubuntuvibes.com/";
-
+	public static String NEW_URL1 = "www.zerolinux5.com/";
+	public static String NEW_URL2 = "news.ycombinator.com/";	
+	public static String NEW_URL3 = "www.ubuntuvibes.com/";
+	public static String THROWAWAY = " ";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,17 +43,17 @@ public class MainActivity extends Activity {
 	
 	public void buttonOne(View v){
 		WebView myWebView = (WebView) findViewById(R.id.webview);
-		myWebView.loadUrl(NEW_URL1);
+		myWebView.loadUrl("http://"+NEW_URL1);
 	}
 	
 	public void buttonTwo(View v){
 		WebView myWebView = (WebView) findViewById(R.id.webview);
-		myWebView.loadUrl(NEW_URL2);
+		myWebView.loadUrl("http://"+NEW_URL2);
 	}
 	
 	public void buttonThree(View v){
 		WebView myWebView = (WebView) findViewById(R.id.webview);
-		myWebView.loadUrl(NEW_URL3);
+		myWebView.loadUrl("http://"+NEW_URL3);
 	}
 	
 	  @Override
@@ -77,20 +79,33 @@ public class MainActivity extends Activity {
 	        super.onActivityResult(requestCode, resultCode, data);
 	    	if(requestCode == BUTTONTRUE){
 	    			if (resultCode == RESULT_OK) {
-	    				Log.d(LOG_TAG, "Chosen: this is " +  data.getStringExtra(NEW_STRING));
+
 	    				if(Integer.parseInt(data.getStringExtra(LABEL_NUMBER)) == 1){	
 	    					Button b = (Button) findViewById(R.id.button1);
-	    					b.setText(data.getStringExtra(NEW_STRING));
+	    					b.setText(MenuActivity.NEWSTRING);
+	    					NEW_URL1 = data.getStringExtra(NEW_URL1);
 	    				} 
 	    				if(Integer.parseInt(data.getStringExtra(LABEL_NUMBER)) == 2){	
 	    					Button b = (Button) findViewById(R.id.button2);
-	    					b.setText(data.getStringExtra(NEW_STRING));
+	    					b.setText(MenuActivity.NEWSTRING);
+	    					NEW_URL2 = data.getStringExtra(NEW_URL2);
 	    				} 
 	    				if(Integer.parseInt(data.getStringExtra(LABEL_NUMBER)) == 3){	
 	    					Button b = (Button) findViewById(R.id.button3);
-	    					b.setText(data.getStringExtra(NEW_STRING));
+	    					b.setText(MenuActivity.NEWSTRING);
+	    					NEW_URL3 = data.getStringExtra(NEW_URL3);
 	    				} 
 	    			}
 	    	}
+	    }
+	    
+	    public void share(View v){
+	    	Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+	    	sharingIntent.setType("text/plain");
+			WebView myWebView = (WebView) findViewById(R.id.webview);
+	    	String shareBody = myWebView.getUrl();
+	    	sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Check out this URL");
+	    	sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+	    	startActivity(Intent.createChooser(sharingIntent, "Share via"));
 	    }
 }
