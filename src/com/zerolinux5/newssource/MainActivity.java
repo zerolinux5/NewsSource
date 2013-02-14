@@ -4,18 +4,23 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.ViewFlipper;
 
 public class MainActivity extends Activity implements OnGestureListener {
@@ -30,11 +35,14 @@ public class MainActivity extends Activity implements OnGestureListener {
 	public static String BUTTON_2 = "Hacker News";
 	public static String BUTTON_3 = "Ubuntu Vibes";
 	WebView myWebView;
+	 ProgressBar progressBar;
+
 	
 	private GestureDetector myGesture;
 	private static final int SWIPE_MIN_DISTANCE = 250;
 	private static final int SWIPE_MAX_OFF_PATH = 200;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 150;
+	private static final int UP_SWIPE_MIN_DIST = 430;
 	
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent e){
@@ -76,6 +84,9 @@ public class MainActivity extends Activity implements OnGestureListener {
 		b2.setText(BUTTON_2);
 		Button b3 = (Button) findViewById(R.id.button3);
 		b3.setText(BUTTON_3);
+		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+		myWebView.setWebViewClient(new myWebClient());
+
 	}
 
 	@Override
@@ -99,18 +110,6 @@ public class MainActivity extends Activity implements OnGestureListener {
 		WebView myWebView = (WebView) findViewById(R.id.webview);
 		myWebView.loadUrl("http://"+NEW_URL3);
 	}
-	
-	  @Override
-	   public void onBackPressed() {
-		   WebView myWebView = (WebView) findViewById(R.id.webview);
-	       if (myWebView.canGoBack()) {
-	           myWebView.goBack();
-	       } else {
-	       // If it wasn't the Back key or there's no web page history, bubble up to the default
-	       // system behavior (probably exit the activity)
-	           super.onBackPressed();
-	       }
-	   }
 	  
 	  public void menu(View v){
 		  	SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -193,24 +192,19 @@ public class MainActivity extends Activity implements OnGestureListener {
 			float dY = e1.getY()-e2.getY();
 			if (Math.abs(dY)<SWIPE_MAX_OFF_PATH && Math.abs(velocityX)>=SWIPE_THRESHOLD_VELOCITY && Math.abs(dX)>=SWIPE_MIN_DISTANCE ) {
 				if (dX>0) {
-					//button click class
+					share(null);
 				} else {
 					menu(null);
 				}
 				return true;
-			} else if (Math.abs(dX)<SWIPE_MAX_OFF_PATH && Math.abs(velocityY)>=SWIPE_THRESHOLD_VELOCITY && Math.abs(dY)>=SWIPE_MIN_DISTANCE ) {
-				if (dY>0) {
-					share(null);
-			}
-			return true;
-			}
+			} 
 			return false;
 		}
 
 		@Override
 		public void onLongPress(MotionEvent e) {
 			// TODO Auto-generated method stub
-			
+			menu(null);
 		}
 
 		@Override
@@ -260,6 +254,40 @@ public class MainActivity extends Activity implements OnGestureListener {
 		  	super.onPause();
 		}
 		
+		public class myWebClient extends WebViewClient
+		    {
+		     @Override
+		     public void onPageStarted(WebView view, String url, Bitmap favicon) {
+		      // TODO Auto-generated method stub
+			  progressBar.setVisibility(View.VISIBLE);
+		      super.onPageStarted(view, url, favicon);
+		     }
+		     @Override
+		     public boolean shouldOverrideUrlLoading(WebView view, String url) {
+		      // TODO Auto-generated method stub
+		      view.loadUrl(url);
+		      return true;
+		     }
+		     
+		     @Override
+		     public void onPageFinished(WebView view, String url) {
+		      super.onPageFinished(view, url);
+		      progressBar.setVisibility(View.GONE);
+		     }
+		    }
+		    // To handle "Back" key press event for WebView to go back to previous screen.
+		 @Override
+		 public boolean onKeyDown(int keyCode, KeyEvent event)
+		 {
+		  if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
+		   myWebView.goBack();
+		   return true;
+		  }
+		  return super.onKeyDown(keyCode, event);
+		 }
+		}
+
+		
 //		
 //		 @Override
 //		  public void onPause() {
@@ -287,5 +315,4 @@ public class MainActivity extends Activity implements OnGestureListener {
 //    	}
 //    	super.onPause();
 // }  
-		
-}
+	

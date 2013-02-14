@@ -13,7 +13,7 @@
         android:layout_alignRight="@+id/button1"
         android:layout_toRightOf="@+id/progressBar3"
         android:text="@string/settings"
-        android:gravity="center";
+        android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/progressBar1"
-        android:layout_toLeftOf="@+id/textView2" >
+        android:layout_toLeftOf="@+id/progressBar1" >
 
         <RadioButton
             android:id="@+id/radio0"
