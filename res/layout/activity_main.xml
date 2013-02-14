@@ -2,32 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/icon"
     tools:context=".MainActivity" >
-    
     <WebView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/webview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/button1" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:onClick="share"
-        android:text="@string/share" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:onClick="menu"
-        android:text="@string/menu" />
 
     <Button
         android:id="@+id/button2"
@@ -43,10 +25,9 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button4"
+        android:layout_above="@+id/button2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="96dp"
         android:onClick="buttonOne"
         android:text="@string/button_one" />
 
@@ -54,8 +35,8 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button4"
         android:layout_alignLeft="@+id/button1"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:onClick="buttonThree"
         android:text="@string/button_three" />

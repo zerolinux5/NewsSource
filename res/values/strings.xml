@@ -10,15 +10,17 @@
     <string name="share">Share</string>
     <string name="menu">Menu</string>
     <string name="title_activity_menu">MenuActivity</string>
-    <string name="enter">Enter</string>
-    <string name="radio_one">Button 1</string>
-    <string name="radio_two">Button 2</string>   
-    <string name="radio_three">Button 3</string>
+    <string name="enter">Replace News Source</string>
+    <string name="radio_one">1st</string>
+    <string name="radio_two">2nd</string>
+    <string name="radio_three">3rd</string>
     <string name="url">Enter URL</string>
-    <string name="name">Enter Name</string>
+    <string name="name">Title</string>
     <string name="default_1">http://www.zerolinux5.com/</string>
     <string name="default_2">http://news.ycombinator.com/</string>
     <string name="default_3">http://www.ubuntuvibes.com/</string>
-    <string name="prefix">Http://</string>
-    
+    <string name="prefix">http://</string>
+    <string name="title_activity_buttons_screen">ButtonsScreen</string>
+    <string name="settings">Settings</string>
+
 </resources>

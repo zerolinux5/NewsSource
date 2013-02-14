@@ -29,6 +29,10 @@
             android:name="com.zerolinux5.newssource.MenuActivity"
             android:label="@string/title_activity_menu" >
         </activity>
+        <activity
+            android:name="com.zerolinux5.newssource.ButtonsScreen"
+            android:label="@string/title_activity_buttons_screen" >
+        </activity>
     </application>
 
 </manifest>

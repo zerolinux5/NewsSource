@@ -5,7 +5,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.GestureDetector.OnGestureListener;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,13 +16,23 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-public class MenuActivity extends Activity {
+public class MenuActivity extends Activity implements OnGestureListener {
 	private static final String LOG_TAG = "ChooserActivity";
 	private static final String PREFS_NAME = "BasicPreferences";
 	private RadioGroup r1;
 	public static String NEWSTRING = " ";
 	public static final String NEWSTRING_POINTER = "NEWSTRING";
 	
+	private GestureDetector myGesture;
+	private static final int SWIPE_MIN_DISTANCE = 200;
+	private static final int SWIPE_MAX_OFF_PATH = 200;
+	private static final int SWIPE_THRESHOLD_VELOCITY = 150;
+	
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent e){
+	    super.dispatchTouchEvent(e);
+	    return myGesture.onTouchEvent(e);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +44,7 @@ public class MenuActivity extends Activity {
 	    r1 = (RadioGroup) findViewById(R.id.radioGroup1);
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 		NEWSTRING = settings.getString(NEWSTRING_POINTER, " ");
+		myGesture = new GestureDetector(this);
 	}
 	
 	  View.OnClickListener myhandler1 = new View.OnClickListener() {
@@ -51,16 +65,6 @@ public class MenuActivity extends Activity {
 		String newString = simpleEditText.getText().toString();
 		EditText simpleEditText2 = (EditText) findViewById(R.id.editText2);
 		String newURL = simpleEditText2.getText().toString();	
-		if (simpleEditText.length() == 0){
-	        Toast toast = Toast.makeText(this, "Need to enter a Label!", Toast.LENGTH_LONG);
-	        toast.show();
-		} else if(simpleEditText2.length() == 0){
-	        Toast toast = Toast.makeText(this, "Need to enter a URL!", Toast.LENGTH_LONG);
-	        toast.show();			
-		} else if(getRadioButton() == -1){
-	        Toast toast = Toast.makeText(this, "Need to pick a button to replace!", Toast.LENGTH_LONG);
-	        toast.show();		
-		} else {
 			String buttonlabel = Integer.toString(getRadioButton());
 			Intent result = new Intent();
 			result.putExtra(MainActivity.NEW_STRING, newString);
@@ -80,7 +84,6 @@ public class MenuActivity extends Activity {
 			result.putExtra(MainActivity.LABEL_NUMBER, buttonlabel);
 			setResult(RESULT_OK, result);
 			finish();
-		}
 	}
 
 	   private int getRadioButton() {
@@ -96,4 +99,49 @@ public class MenuActivity extends Activity {
 		    	  return -1;
 		      }
 		   }
+
+	@Override
+	public boolean onDown(MotionEvent e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+		float dX = e2.getX()-e1.getX();
+		float dY = e1.getY()-e2.getY();
+		if (Math.abs(dY)<SWIPE_MAX_OFF_PATH && Math.abs(velocityX)>=SWIPE_THRESHOLD_VELOCITY && Math.abs(dX)>=SWIPE_MIN_DISTANCE ) {
+			if (dX>0) {
+				causeReturn(null);
+			} else {
+			}
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void onLongPress(MotionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+			float distanceY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void onShowPress(MotionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean onSingleTapUp(MotionEvent e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -3,35 +3,79 @@ package com.zerolinux5.newssource;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.util.Log;
+import android.content.SharedPreferences;
 import android.view.GestureDetector;
+import android.view.GestureDetector.OnGestureListener;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.ViewFlipper;
 
-public class MainActivity extends Activity {
-	private static final String LOG_TAG = "ChooserActivity";
+public class MainActivity extends Activity implements OnGestureListener {
+	private static final String PREFS_NAME = "BasicPreferences";
 	public static final int BUTTONTRUE = 1;
 	public static final String LABEL_NUMBER = "";
 	public static final String NEW_STRING = "";
 	public static String NEW_URL1 = "www.zerolinux5.com/";
 	public static String NEW_URL2 = "news.ycombinator.com/";	
 	public static String NEW_URL3 = "www.ubuntuvibes.com/";
-	public static String THROWAWAY = " ";
+	public static String BUTTON_1 = "ZeroLinux5";
+	public static String BUTTON_2 = "Hacker News";
+	public static String BUTTON_3 = "Ubuntu Vibes";
+	WebView myWebView;
+	
+	private GestureDetector myGesture;
+	private static final int SWIPE_MIN_DISTANCE = 250;
+	private static final int SWIPE_MAX_OFF_PATH = 200;
+	private static final int SWIPE_THRESHOLD_VELOCITY = 150;
+	
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent e){
+	    super.dispatchTouchEvent(e);
+	    return myGesture.onTouchEvent(e);
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		WebView myWebView = (WebView) findViewById(R.id.webview);
+		myWebView = (WebView) findViewById(R.id.webview);
 		WebSettings webSettings = myWebView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 		myWebView.setWebViewClient(new WebViewClient());
-
+		myGesture = new GestureDetector(this);
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0); 
+		String temp = settings.getString("new_url1", "");
+		if (temp.length() != 0)
+			NEW_URL1 = settings.getString("new_url1", "");
+		temp = settings.getString("new_url2", "");
+		if (temp.length() != 0)
+			NEW_URL2 = settings.getString("new_url2", "");
+		temp = settings.getString("new_url3", "");
+		if (temp.length() != 0)
+			NEW_URL3 = settings.getString("new_url3", "");
+		temp = settings.getString("new_button1", "");
+		if (temp.length() != 0)
+			BUTTON_1 = temp;
+		temp = settings.getString("new_button2", "");
+		if (temp.length() != 0)
+			BUTTON_2 = temp;
+		temp = settings.getString("new_button3", "");
+		if (temp.length() != 0)
+			BUTTON_3 = temp;
+		Button b1 = (Button) findViewById(R.id.button1);
+		b1.setText(BUTTON_1);
+		Button b2 = (Button) findViewById(R.id.button2);
+		b2.setText(BUTTON_2);
+		Button b3 = (Button) findViewById(R.id.button3);
+		b3.setText(BUTTON_3);
 	}
 
 	@Override
@@ -69,6 +113,15 @@ public class MainActivity extends Activity {
 	   }
 	  
 	  public void menu(View v){
+		  	SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		  	SharedPreferences.Editor editor = settings.edit(); 
+		  	editor.putString("new_url1", NEW_URL1); 
+		  	editor.putString("new_url2", NEW_URL2);
+		  	editor.putString("new_url3", NEW_URL3);
+		  	editor.putString("new_button1", BUTTON_1);
+		  	editor.putString("new_button2", BUTTON_2);
+		  	editor.putString("new_button3", BUTTON_3);
+		  	editor.commit();    
 	    	Intent intent = new Intent(MainActivity.this, MenuActivity.class);
 	    	startActivityForResult(intent, BUTTONTRUE);  
 	  }
@@ -82,21 +135,40 @@ public class MainActivity extends Activity {
 
 	    				if(Integer.parseInt(data.getStringExtra(LABEL_NUMBER)) == 1){	
 	    					Button b = (Button) findViewById(R.id.button1);
-	    					b.setText(MenuActivity.NEWSTRING);
-	    					NEW_URL1 = data.getStringExtra(NEW_URL1);
+	    					if (MenuActivity.NEWSTRING.length() != 0){
+		    					b.setText(MenuActivity.NEWSTRING);
+		    					BUTTON_1 = MenuActivity.NEWSTRING;
+		    					NEW_URL1 = data.getStringExtra(NEW_URL1);
+	    					}
 	    				} 
 	    				if(Integer.parseInt(data.getStringExtra(LABEL_NUMBER)) == 2){	
 	    					Button b = (Button) findViewById(R.id.button2);
-	    					b.setText(MenuActivity.NEWSTRING);
-	    					NEW_URL2 = data.getStringExtra(NEW_URL2);
+	    					if (MenuActivity.NEWSTRING.length() != 0){
+		    					b.setText(MenuActivity.NEWSTRING);
+		    					NEW_URL2 = data.getStringExtra(NEW_URL2);
+		    					BUTTON_2 = MenuActivity.NEWSTRING;
+	    					}
 	    				} 
 	    				if(Integer.parseInt(data.getStringExtra(LABEL_NUMBER)) == 3){	
 	    					Button b = (Button) findViewById(R.id.button3);
-	    					b.setText(MenuActivity.NEWSTRING);
-	    					NEW_URL3 = data.getStringExtra(NEW_URL3);
+	    					if (MenuActivity.NEWSTRING.length() != 0){
+		    					b.setText(MenuActivity.NEWSTRING);
+		    					NEW_URL3 = data.getStringExtra(NEW_URL3);
+		    					BUTTON_3 = MenuActivity.NEWSTRING;
+	    					}
 	    				} 
 	    			}
 	    	}
+		  	SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		  	SharedPreferences.Editor editor = settings.edit(); 
+		  	editor.putString("new_url1", NEW_URL1); 
+		  	editor.putString("new_url2", NEW_URL2);
+		  	editor.putString("new_url3", NEW_URL3);
+		  	editor.putString("new_button1", BUTTON_1);
+		  	editor.putString("new_button2", BUTTON_2);
+		  	editor.putString("new_button3", BUTTON_3);
+		  	editor.commit();
+		  	super.onPause();
 	    }
 	    
 	    public void share(View v){
@@ -108,4 +180,112 @@ public class MainActivity extends Activity {
 	    	sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 	    	startActivity(Intent.createChooser(sharingIntent, "Share via"));
 	    }
+
+		@Override
+		public boolean onDown(MotionEvent e) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+			float dX = e2.getX()-e1.getX();
+			float dY = e1.getY()-e2.getY();
+			if (Math.abs(dY)<SWIPE_MAX_OFF_PATH && Math.abs(velocityX)>=SWIPE_THRESHOLD_VELOCITY && Math.abs(dX)>=SWIPE_MIN_DISTANCE ) {
+				if (dX>0) {
+					//button click class
+				} else {
+					menu(null);
+				}
+				return true;
+			} else if (Math.abs(dX)<SWIPE_MAX_OFF_PATH && Math.abs(velocityY)>=SWIPE_THRESHOLD_VELOCITY && Math.abs(dY)>=SWIPE_MIN_DISTANCE ) {
+				if (dY>0) {
+					share(null);
+			}
+			return true;
+			}
+			return false;
+		}
+
+		@Override
+		public void onLongPress(MotionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean onScroll(MotionEvent e1, MotionEvent e2,
+				float distanceX, float distanceY) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public void onShowPress(MotionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean onSingleTapUp(MotionEvent e) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		@Override
+		public void onPause(){
+		  	SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		  	SharedPreferences.Editor editor = settings.edit(); 
+		  	editor.putString("new_url1", NEW_URL1); 
+		  	editor.putString("new_url2", NEW_URL2);
+		  	editor.putString("new_url3", NEW_URL3);
+		  	editor.putString("new_button1", BUTTON_1);
+		  	editor.putString("new_button2", BUTTON_2);
+		  	editor.putString("new_button3", BUTTON_3);
+		  	editor.commit();
+		  	super.onPause();
+		}
+		
+		@Override
+		public void onStop(){
+		  	SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		  	SharedPreferences.Editor editor = settings.edit(); 
+		  	editor.putString("new_url1", NEW_URL1); 
+		  	editor.putString("new_url2", NEW_URL2);
+		  	editor.putString("new_url3", NEW_URL3);
+		  	editor.putString("new_button1", BUTTON_1);
+		  	editor.putString("new_button2", BUTTON_2);
+		  	editor.putString("new_button3", BUTTON_3);
+		  	editor.commit();
+		  	super.onPause();
+		}
+		
+//		
+//		 @Override
+//		  public void onPause() {
+//
+//		    	Method pause = null;
+//		    	// Resumes the webview.
+//		    	try {
+//		    		pause = WebView.class.getMethod("onPause");
+//		    	} catch (SecurityException e) {
+//		    		// Nothing
+//		    	} catch (NoSuchMethodException e) {
+//		    		// Nothing
+//		    	}
+//		if (pause != null) {
+//    		try {
+//    			pause.invoke(myWebView);
+//    		} catch (InvocationTargetException e) {
+//			} catch (IllegalAccessException e) {
+//			}
+//    	} else {
+//    		// No such method.  Stores the current URL.
+//    		suspendUrl = myWebView.getUrl();
+//    		// And loads a URL without any processing.
+//    		myWebView.loadUrl("");
+//    	}
+//    	super.onPause();
+// }  
+		
 }
