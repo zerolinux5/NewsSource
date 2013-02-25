@@ -136,16 +136,19 @@ public class MainActivity extends Activity implements OnGestureListener {
 	public void buttonOne(View v){
 		WebView myWebView = (WebView) findViewById(R.id.webview);
 		myWebView.loadUrl("http://"+NEW_URL1);
+		slidingDrawer.close();
 	}
 	
 	public void buttonTwo(View v){
 		WebView myWebView = (WebView) findViewById(R.id.webview);
 		myWebView.loadUrl("http://"+NEW_URL2);
+		slidingDrawer.close();
 	}
 	
 	public void buttonThree(View v){
 		WebView myWebView = (WebView) findViewById(R.id.webview);
 		myWebView.loadUrl("http://"+NEW_URL3);
+		slidingDrawer.close();
 	}
 	  
 	  public void menu(View v){
