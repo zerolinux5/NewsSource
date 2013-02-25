@@ -1,5 +1,8 @@
 package com.zerolinux5.newssource;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -34,6 +37,7 @@ public class MainActivity extends Activity implements OnGestureListener {
 	public static String BUTTON_1 = "ZeroLinux5";
 	public static String BUTTON_2 = "Hacker News";
 	public static String BUTTON_3 = "Ubuntu Vibes";
+	public static String suspendUrl = "";
 	WebView myWebView;
 	 ProgressBar progressBar;
 
@@ -237,6 +241,28 @@ public class MainActivity extends Activity implements OnGestureListener {
 		  	editor.putString("new_button2", BUTTON_2);
 		  	editor.putString("new_button3", BUTTON_3);
 		  	editor.commit();
+		  	
+			Method pause = null;
+	    	// Resumes the webview.
+	    	try {
+	    		pause = WebView.class.getMethod("onPause");
+	    	} catch (SecurityException e) {
+	    		// Nothing
+	    	} catch (NoSuchMethodException e) {
+	    		// Nothing
+	    	}	if (pause != null) {
+	    		try {
+	    			pause.invoke(myWebView);
+	    		} catch (InvocationTargetException e) {
+				} catch (IllegalAccessException e) {
+				}
+	    	} else {
+	    		// No such method.  Stores the current URL.
+	    		suspendUrl = myWebView.getUrl();
+	    		// And loads a URL without any processing.
+	    		myWebView.loadUrl("");
+	    	}
+	    	
 		  	super.onPause();
 		}
 		
