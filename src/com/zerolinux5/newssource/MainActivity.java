@@ -24,6 +24,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.SlidingDrawer;
+import android.widget.SlidingDrawer.OnDrawerCloseListener;
+import android.widget.SlidingDrawer.OnDrawerOpenListener;
 import android.widget.ViewFlipper;
 
 public class MainActivity extends Activity implements OnGestureListener {
@@ -39,14 +42,17 @@ public class MainActivity extends Activity implements OnGestureListener {
 	public static String BUTTON_3 = "Ubuntu Vibes";
 	public static String suspendUrl = "";
 	WebView myWebView;
-	 ProgressBar progressBar;
-
+	ProgressBar progressBar;
+	Button slideHandleButton;
+	SlidingDrawer slidingDrawer;
 	
 	private GestureDetector myGesture;
 	private static final int SWIPE_MIN_DISTANCE = 250;
 	private static final int SWIPE_MAX_OFF_PATH = 200;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 150;
 	private static final int UP_SWIPE_MIN_DIST = 430;
+	
+
 	
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent e){
@@ -58,12 +64,15 @@ public class MainActivity extends Activity implements OnGestureListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		//set the webview, settings, saved preferences and the gesture detector
 		myWebView = (WebView) findViewById(R.id.webview);
 		WebSettings webSettings = myWebView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 		myWebView.setWebViewClient(new WebViewClient());
 		myGesture = new GestureDetector(this);
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0); 
+		//set the labels and urls to what was previously saved if anything was saved
 		String temp = settings.getString("new_url1", "");
 		if (temp.length() != 0)
 			NEW_URL1 = settings.getString("new_url1", "");
@@ -82,15 +91,39 @@ public class MainActivity extends Activity implements OnGestureListener {
 		temp = settings.getString("new_button3", "");
 		if (temp.length() != 0)
 			BUTTON_3 = temp;
+		//set the buttons to correspond to their id
 		Button b1 = (Button) findViewById(R.id.button1);
 		b1.setText(BUTTON_1);
 		Button b2 = (Button) findViewById(R.id.button2);
 		b2.setText(BUTTON_2);
 		Button b3 = (Button) findViewById(R.id.button3);
 		b3.setText(BUTTON_3);
+		//set the progress bar and hide it also set the web client
 		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+		progressBar.setVisibility(View.GONE);
 		myWebView.setWebViewClient(new myWebClient());
 
+		//set the sliding bar and its methods
+		slideHandleButton = (Button) findViewById(R.id.handle);
+		slidingDrawer = (SlidingDrawer) findViewById(R.id.slidingDrawer1);
+		
+		slidingDrawer.setOnDrawerOpenListener(new OnDrawerOpenListener(){
+			@Override
+			public void onDrawerOpened() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		slidingDrawer.setOnDrawerCloseListener( new OnDrawerCloseListener(){
+			@Override
+			public void onDrawerClosed() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 	}
 
 	@Override
