@@ -15,7 +15,7 @@
     <string name="radio_two">2nd</string>
     <string name="radio_three">3rd</string>
     <string name="url">Enter URL</string>
-    <string name="name">Title</string>
+    <string name="name">Title: </string>
     <string name="default_1">http://www.zerolinux5.com/</string>
     <string name="default_2">http://news.ycombinator.com/</string>
     <string name="default_3">http://www.ubuntuvibes.com/</string>

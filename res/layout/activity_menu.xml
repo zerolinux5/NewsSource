@@ -5,23 +5,12 @@
     android:background="@drawable/icon"
     tools:context=".MenuActivity" >
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/button1"
-        android:layout_toRightOf="@+id/progressBar3"
-        android:text="@string/settings"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_alignRight="@+id/linearLayout2"
         android:layout_below="@+id/linearLayout2"
         android:layout_marginTop="26dp" >
 
@@ -30,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/prefix"
+            android:paddingRight="5dp"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
@@ -43,16 +33,17 @@
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="15dp" >
+        android:layout_below="@+id/progressBar4"
+        android:layout_toLeftOf="@+id/progressBar4"
+        android:layout_toRightOf="@+id/progressBar3" >
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:text="@string/name"
+            android:paddingRight="5dp"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
@@ -60,7 +51,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_weight="1.65"
             android:ems="10" >
 
             <requestFocus />
@@ -109,12 +99,22 @@
         android:layout_alignParentTop="true"
         android:visibility="invisible" />
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/progressBar4"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/settings"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <RadioGroup
         android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/progressBar1" >
+        android:layout_below="@+id/progressBar1"
+        android:layout_toRightOf="@+id/progressBar3" >
 
         <RadioButton
             android:id="@+id/radio0"
@@ -135,5 +135,21 @@
             android:layout_height="wrap_content"
             android:text="@string/radio_three" />
     </RadioGroup>
+
+    <ProgressBar
+        android:id="@+id/progressBar5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:visibility="invisible" />
+
+    <ProgressBar
+        android:id="@+id/progressBar6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:visibility="invisible" />
 
 </RelativeLayout>
