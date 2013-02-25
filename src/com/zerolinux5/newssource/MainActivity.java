@@ -178,6 +178,8 @@ public class MainActivity extends Activity implements OnGestureListener {
 		    					b.setText(MenuActivity.NEWSTRING);
 		    					BUTTON_1 = MenuActivity.NEWSTRING;
 		    					NEW_URL1 = data.getStringExtra(NEW_URL1);
+		    					WebView myWebView = (WebView) findViewById(R.id.webview);
+		    					myWebView.loadUrl("http://"+NEW_URL1);
 	    					}
 	    				} 
 	    				if(Integer.parseInt(data.getStringExtra(LABEL_NUMBER)) == 2){	
@@ -186,6 +188,8 @@ public class MainActivity extends Activity implements OnGestureListener {
 		    					b.setText(MenuActivity.NEWSTRING);
 		    					NEW_URL2 = data.getStringExtra(NEW_URL2);
 		    					BUTTON_2 = MenuActivity.NEWSTRING;
+		    					WebView myWebView = (WebView) findViewById(R.id.webview);
+		    					myWebView.loadUrl("http://"+NEW_URL2);
 	    					}
 	    				} 
 	    				if(Integer.parseInt(data.getStringExtra(LABEL_NUMBER)) == 3){	
@@ -194,6 +198,8 @@ public class MainActivity extends Activity implements OnGestureListener {
 		    					b.setText(MenuActivity.NEWSTRING);
 		    					NEW_URL3 = data.getStringExtra(NEW_URL3);
 		    					BUTTON_3 = MenuActivity.NEWSTRING;
+		    					WebView myWebView = (WebView) findViewById(R.id.webview);
+		    					myWebView.loadUrl("http://"+NEW_URL3);
 	    					}
 	    				} 
 	    			}
