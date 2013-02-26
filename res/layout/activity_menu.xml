@@ -5,58 +5,6 @@
     android:background="@drawable/icon"
     tools:context=".MenuActivity" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/linearLayout2"
-        android:layout_alignRight="@+id/linearLayout2"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_marginTop="26dp" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/prefix"
-            android:paddingRight="5dp"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/progressBar4"
-        android:layout_toLeftOf="@+id/progressBar4"
-        android:layout_toRightOf="@+id/progressBar3" >
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="@string/name"
-            android:paddingRight="5dp"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10" >
-
-            <requestFocus />
-        </EditText>
-    </LinearLayout>
-
     <ProgressBar
         android:id="@+id/progressBar1"
         android:layout_width="wrap_content"
@@ -70,9 +18,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/radioGroup1"
+        android:layout_alignLeft="@+id/progressBar1"
         android:layout_alignTop="@+id/radioGroup1"
         android:layout_toLeftOf="@+id/progressBar2"
-        android:layout_toRightOf="@+id/progressBar1"
         android:text="@string/enter" />
 
     <ProgressBar
@@ -99,22 +47,104 @@
         android:layout_alignParentTop="true"
         android:visibility="invisible" />
 
+    <ProgressBar
+        android:id="@+id/progressBar5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:visibility="invisible" />
+
+    <ProgressBar
+        android:id="@+id/progressBar6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/linearLayout2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:visibility="invisible" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/progressBar4"
-        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/progressBar7"
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/progressBar6"
         android:gravity="center"
         android:text="@string/settings"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/progressBar3"
+        android:visibility="invisible" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="16dp"
+        android:layout_toLeftOf="@+id/progressBar6"
+        android:layout_toRightOf="@+id/progressBar7" >
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:text="@string/name"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_below="@+id/progressBar6"
+        android:layout_marginTop="24dp"
+        android:layout_toLeftOf="@+id/progressBar2" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:text="@string/prefix"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
 
     <RadioGroup
         android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
         android:layout_below="@+id/progressBar1"
-        android:layout_toRightOf="@+id/progressBar3" >
+        android:layout_marginTop="28dp" >
 
         <RadioButton
             android:id="@+id/radio0"
@@ -135,21 +165,5 @@
             android:layout_height="wrap_content"
             android:text="@string/radio_three" />
     </RadioGroup>
-
-    <ProgressBar
-        android:id="@+id/progressBar5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:visibility="invisible" />
-
-    <ProgressBar
-        android:id="@+id/progressBar6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:visibility="invisible" />
 
 </RelativeLayout>
