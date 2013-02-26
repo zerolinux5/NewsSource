@@ -30,14 +30,21 @@
             android:id="@+id/handle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Handle" />
+            android:background="@drawable/newsmall"/>
 
         <LinearLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent" 
-            android:background="@drawable/icon"
+            android:background="@drawable/black"
             android:orientation="vertical">
+            
+           <TextView
+                android:id="@+id/button5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:onClick="buttonOne"/>
 
             <Button
                 android:id="@+id/button1"
