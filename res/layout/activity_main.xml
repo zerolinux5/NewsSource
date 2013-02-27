@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/progressBar8"
         android:content="@+id/content"
         android:handle="@+id/handle" >
 
@@ -30,55 +30,115 @@
             android:id="@+id/handle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/newsmall"/>
-
-        <LinearLayout
+            android:background="@drawable/test"/>
+	
+		<LinearLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent" 
             android:background="@drawable/black"
             android:orientation="vertical">
-            
-           <TextView
-                android:id="@+id/button5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:onClick="buttonOne"/>
 
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="buttonOne"
-                android:text="@string/button_one" />
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="buttonTwo"
-                android:text="@string/button_two" />
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:paddingBottom="10dp"
+               android:layout_height="wrap_content" >
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:onClick="buttonThree"
-                android:text="@string/button_three" />
+               <ProgressBar
+                   android:id="@+id/progressBar2"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:visibility="invisible" />
+
+               <Button
+                   android:id="@+id/button1"
+                   android:layout_width="216dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:background="@drawable/button_custom"
+                   android:textColor="#FFE1FF"
+                   android:text="@string/button_one" />
+
+               <ProgressBar
+                   android:id="@+id/progressBar3"
+                   android:layout_width="wrap_content"
+                   android:visibility="invisible"
+                   android:layout_height="wrap_content" />
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:paddingBottom="10dp"
+               android:layout_height="wrap_content" >
+
+               <ProgressBar
+                   android:id="@+id/progressBar4"
+                   android:layout_width="wrap_content"
+                   android:visibility="invisible"
+                   android:layout_height="wrap_content" />
+
+               <Button
+                   android:id="@+id/button2"
+                   android:layout_width="200dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1."
+                   android:background="@drawable/button_custom"
+                   android:textColor="#FFE1FF"
+                   android:text="@string/button_two" />
+
+               <ProgressBar
+                   android:id="@+id/progressBar5"
+                   android:layout_width="wrap_content"
+                   android:visibility="invisible"
+                   android:layout_height="wrap_content" />
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content" >
+
+               <ProgressBar
+                   android:id="@+id/progressBar6"
+                   android:layout_width="wrap_content"
+                   android:visibility="invisible"
+                   android:layout_height="wrap_content" />
+
+               <Button
+                   android:id="@+id/button3"
+                   android:layout_width="217dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:background="@drawable/button_custom"
+                   android:textColor="#FFE1FF"
+                   android:text="@string/button_three" />
+
+               <ProgressBar
+                   android:id="@+id/progressBar7"
+                   android:layout_width="wrap_content"
+                   android:visibility="invisible"
+                   android:layout_height="wrap_content" />
+           </LinearLayout>
 
         </LinearLayout>
     </SlidingDrawer>
 
-    <TextView
-        android:id="@+id/textView1"
+    <ProgressBar
+        android:id="@+id/progressBar8"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall"
         android:visibility="invisible" />
+
+    <ProgressBar
+        android:id="@+id/progressBar9"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_below="@+id/progressBar8"
+        android:layout_marginLeft="16dp" />
 
 </RelativeLayout>

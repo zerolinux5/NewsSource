@@ -30,14 +30,14 @@
         <Button
             android:id="@+id/handle"
             android:layout_width="70dp"
-            android:layout_height="293dp"
-            android:text="Handle" />
+            android:background="@drawable/test2"
+            android:layout_height="293dp"/>
 
         <LinearLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/icon"
+            android:background="@drawable/black"
             android:orientation="vertical" >
 
             <Button
@@ -45,6 +45,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="buttonOne"
+                android:background="@drawable/button_custom"
+                android:textColor="#FFE1FF"
                 android:text="@string/button_one" />
 
             <Button
@@ -52,6 +54,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="buttonTwo"
+                android:background="@drawable/button_custom"
+                android:textColor="#FFE1FF"
                 android:text="@string/button_two" />
 
             <Button
@@ -60,6 +64,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:onClick="buttonThree"
+                android:background="@drawable/button_custom"
+                android:textColor="#FFE1FF"
                 android:text="@string/button_three" />
 
         </LinearLayout>

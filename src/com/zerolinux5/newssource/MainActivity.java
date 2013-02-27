@@ -14,6 +14,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
@@ -34,11 +35,11 @@ public class MainActivity extends Activity implements OnGestureListener {
 	public static final int BUTTONTRUE = 1;
 	public static final String LABEL_NUMBER = "";
 	public static final String NEW_STRING = "";
-	public static String NEW_URL1 = "www.zerolinux5.com/";
-	public static String NEW_URL2 = "news.ycombinator.com/";	
+	public static String NEW_URL2 = "www.zerolinux5.com/";
+	public static String NEW_URL1 = "news.ycombinator.com/";	
 	public static String NEW_URL3 = "www.ubuntuvibes.com/";
-	public static String BUTTON_1 = "ZeroLinux5";
-	public static String BUTTON_2 = "Hacker News";
+	public static String BUTTON_2 = "ZeroLinux5";
+	public static String BUTTON_1 = "Hacker News";
 	public static String BUTTON_3 = "Ubuntu Vibes";
 	public static String suspendUrl = "";
 	WebView myWebView;
@@ -120,10 +121,50 @@ public class MainActivity extends Activity implements OnGestureListener {
 			@Override
 			public void onDrawerClosed() {
 				// TODO Auto-generated method stub
-				
 			}
 			
 		});
+		
+		//set button listeners
+		b1.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				buttonOne(null);
+			}
+			
+		});
+		
+		b2.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				buttonTwo(null);
+			}
+			
+		});
+		
+		b3.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				buttonThree(null);
+			}
+			
+		});
+		
+		//set current url
+		temp = settings.getString("suspendUrl", "");
+		if(temp.length() != 0){
+			suspendUrl = temp;
+			myWebView.loadUrl("http://"+suspendUrl);
+		} else {
+			myWebView.loadUrl("http://"+NEW_URL1);
+			slidingDrawer.open();
+		}
 	}
 
 	@Override
@@ -161,6 +202,8 @@ public class MainActivity extends Activity implements OnGestureListener {
 		  	editor.putString("new_button2", BUTTON_2);
 		  	editor.putString("new_button3", BUTTON_3);
 		  	editor.commit();    
+		  	editor.putString("suspendUrl", suspendUrl); 
+		  	editor.commit();
 	    	Intent intent = new Intent(MainActivity.this, MenuActivity.class);
 	    	startActivityForResult(intent, BUTTONTRUE);  
 	  }
@@ -303,6 +346,10 @@ public class MainActivity extends Activity implements OnGestureListener {
 	    		suspendUrl = myWebView.getUrl();
 	    		// And loads a URL without any processing.
 	    		myWebView.loadUrl("");
+	    		settings = getSharedPreferences(PREFS_NAME, 0);
+			  	editor = settings.edit(); 
+			  	editor.putString("suspendUrl", suspendUrl); 
+			  	editor.commit();
 	    	}
 	    	
 		  	super.onPause();
@@ -318,6 +365,8 @@ public class MainActivity extends Activity implements OnGestureListener {
 		  	editor.putString("new_button1", BUTTON_1);
 		  	editor.putString("new_button2", BUTTON_2);
 		  	editor.putString("new_button3", BUTTON_3);
+		  	editor.commit();
+		  	editor.putString("suspendUrl", suspendUrl); 
 		  	editor.commit();
 		  	super.onPause();
 		}
@@ -354,33 +403,3 @@ public class MainActivity extends Activity implements OnGestureListener {
 		  return super.onKeyDown(keyCode, event);
 		 }
 		}
-
-		
-//		
-//		 @Override
-//		  public void onPause() {
-//
-//		    	Method pause = null;
-//		    	// Resumes the webview.
-//		    	try {
-//		    		pause = WebView.class.getMethod("onPause");
-//		    	} catch (SecurityException e) {
-//		    		// Nothing
-//		    	} catch (NoSuchMethodException e) {
-//		    		// Nothing
-//		    	}
-//		if (pause != null) {
-//    		try {
-//    			pause.invoke(myWebView);
-//    		} catch (InvocationTargetException e) {
-//			} catch (IllegalAccessException e) {
-//			}
-//    	} else {
-//    		// No such method.  Stores the current URL.
-//    		suspendUrl = myWebView.getUrl();
-//    		// And loads a URL without any processing.
-//    		myWebView.loadUrl("");
-//    	}
-//    	super.onPause();
-// }  
-	
