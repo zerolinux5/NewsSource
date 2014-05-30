@@ -35,7 +35,7 @@ public class MainActivity extends Activity implements OnGestureListener {
 	public static final int BUTTONTRUE = 1;
 	public static final String LABEL_NUMBER = "";
 	public static final String NEW_STRING = "";
-	public static String NEW_URL2 = "www.zerolinux5.com/";
+	public static String NEW_URL2 = "zerolinux5.com/#/";
 	public static String NEW_URL1 = "news.ycombinator.com/";	
 	public static String NEW_URL3 = "www.ubuntuvibes.com/";
 	public static String BUTTON_2 = "ZeroLinux5";
@@ -66,11 +66,13 @@ public class MainActivity extends Activity implements OnGestureListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		//set the webview, settings, saved preferences and the gesture detector
+		//set the webview, settings, saved preferences
 		myWebView = (WebView) findViewById(R.id.webview);
 		WebSettings webSettings = myWebView.getSettings();
 		webSettings.setJavaScriptEnabled(true);
 		myWebView.setWebViewClient(new WebViewClient());
+		
+		//set the gesture detector
 		myGesture = new GestureDetector(this);
 		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0); 
 		//set the labels and urls to what was previously saved if anything was saved
@@ -368,7 +370,7 @@ public class MainActivity extends Activity implements OnGestureListener {
 		  	editor.commit();
 		  	editor.putString("suspendUrl", suspendUrl); 
 		  	editor.commit();
-		  	super.onPause();
+		  	super.onStop();
 		}
 		
 		public class myWebClient extends WebViewClient
